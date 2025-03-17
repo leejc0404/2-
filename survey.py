@@ -3,7 +3,6 @@ import random
 import time
 from PIL import Image
 import os
-import pandas as pd
 
 # 페이지 설정 (레이아웃을 "wide"로 설정하여 화면을 넓게 사용)
 st.set_page_config(page_title="이프로 시음 조사 경품", page_icon="🎉", layout="wide")
@@ -13,15 +12,20 @@ st.title("🎉 이프로 시음 조사 경품 🎉")
 # 세션 상태 초기화
 if "participants" not in st.session_state:
     st.session_state.participants = []  # 참가자 이름 리스트 초기화
+    
+    # 1, 2, 3등이 반드시 포함된 경품 리스트 생성 (총 30명)
+    st.session_state.prizes = ["100%", "20%", "3%"] + ["2%"] * 27
+    random.shuffle(st.session_state.prizes)  # 경품 순서를 랜덤으로 섞기
+    
     st.session_state.current_index = 0
-    st.session_state.winners = {"100%": [], "20%": [], "3%": [], "2%": 0}  # 각 등수별 당첨자 관리
+    st.session_state.winners = {"100%": [], "20%": [], "3%": [], "2%": 0}
 
 # 참가자 이름 입력받기
 name_input = st.text_input("참가자 이름을 입력하세요:", key="name_input")
 
 if name_input:  # 이름이 입력되었을 때 바로 처리
-    if len(st.session_state.participants) >= 70:
-        st.warning("참가자는 최대 70명까지만 등록할 수 있습니다!")
+    if len(st.session_state.participants) >= 30:
+        st.warning("참가자는 최대 30명까지만 등록할 수 있습니다!")
     elif name_input not in st.session_state.participants:
         st.session_state.participants.append(name_input)
         st.success(f"참가자 '{name_input}'가 등록되었습니다!")
@@ -29,17 +33,7 @@ if name_input:  # 이름이 입력되었을 때 바로 처리
         # 결과 확인 자동 실행
         if st.session_state.current_index < len(st.session_state.participants):
             participant = st.session_state.participants[st.session_state.current_index]
-            participant_number = st.session_state.current_index + 1  # 참가자 번호 (1부터 시작)
-
-            # 등수 결정: 참가자 번호에 따라 등수 범위 설정 및 제한
-            if 60 <= participant_number <= 70 and len(st.session_state.winners["100%"]) == 0:
-                prize = "100%"  # 1등 (60~70번에서 단 한 명)
-            elif 1 <= participant_number <= 30 and len(st.session_state.winners["20%"]) == 0:
-                prize = "20%"  # 2등 (1~30번에서 단 한 명)
-            elif 31 <= participant_number <= 59 and len(st.session_state.winners["3%"]) == 0:
-                prize = "3%"   # 3등 (31~59번에서 단 한 명)
-            else:
-                prize = "2%"   # 나머지
+            prize = st.session_state.prizes[st.session_state.current_index]
 
             with st.spinner(f"{participant}님의 결과를 뽑는 중입니다..."):
                 time.sleep(2)
@@ -92,10 +86,11 @@ if name_input:  # 이름이 입력되었을 때 바로 처리
                 else:
                     st.session_state.winners[prize].append(participant)
 
-                # 각 등수별 인원 표시
+                # 2% 인원 수 표시
                 two_percent_count = st.session_state.winners["2%"]
                 st.write(f"2% 당첨자 총 인원: {two_percent_count}명")
 
+                # 1등, 2등, 3등 이름 공개
                 for prize_key, winners in {"100%": "1등", "20%": "2등", "3%": "3등"}.items():
                     names = ", ".join(st.session_state.winners[prize_key])
                     if names:
@@ -114,7 +109,7 @@ if name_input:  # 이름이 입력되었을 때 바로 처리
             st.session_state.current_index += 1
 
         else:
-            if len(st.session_state.participants) < 70:
+            if len(st.session_state.participants) < 30:
                 st.warning("참가자가 아직 모두 등록되지 않았습니다!")
             else:
                 st.success("모든 참가자의 제비뽑기가 완료되었습니다!")
@@ -123,11 +118,3 @@ if name_input:  # 이름이 입력되었을 때 바로 처리
 # 진행 상황 표시 (넓은 화면에 맞게 진행 바 표시)
 progress = (st.session_state.current_index / len(st.session_state.participants)) if len(st.session_state.participants) > 0 else 0
 st.progress(progress)
-
-# 참여 인원 차트 표시 (실시간 업데이트)
-st.subheader("📈 참여 인원 현황")
-data = pd.DataFrame({
-    "참여 인원": [len(st.session_state.participants)],
-    "남은 인원": [70 - len(st.session_state.participants)]
-})
-st.bar_chart(data.set_index(["참여 인원", "남은 인원"]))
