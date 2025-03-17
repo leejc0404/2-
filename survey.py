@@ -42,8 +42,8 @@ if name_input:  # 이름이 입력되었을 때 바로 처리
             }
             img_path = prize_images.get(prize, None)
 
-            # 좌우 레이아웃 설정 (화면을 넓게 사용)
-            col1, col2 = st.columns([2, 1])  # 왼쪽(결과): 비율 2, 오른쪽(이미지): 비율 1
+            # 좌우 레이아웃 설정 (화면 폭 축소: 비율 조정)
+            col1, col2 = st.columns([3, 1])  # 왼쪽(결과): 비율 3, 오른쪽(이미지): 비율 1
 
             # 왼쪽: 결과 및 당첨자 목록 표시
             with col1:
@@ -85,11 +85,12 @@ if name_input:  # 이름이 입력되었을 때 바로 처리
                     if names:
                         st.write(f"{winners}: {names}")
 
-            # 오른쪽: 이미지 표시
+            # 오른쪽: 이미지 표시 (크기 조정)
             with col2:
                 if img_path and os.path.exists(img_path):
                     img = Image.open(img_path)
-                    st.image(img, use_container_width=True)  # 수정된 부분: use_column_width → use_container_width
+                    resized_img = img.resize((300, 300))  # 이미지 크기 조정 (너비 x 높이)
+                    st.image(resized_img, use_container_width=True)  # 이미지 크기를 화면에 맞게 표시
                 else:
                     st.info(f"(이미지 파일 '{img_path}' 없음)")
 
