@@ -1,6 +1,4 @@
 import pandas as pd
-chart_df = pd.DataFrame([chart_data.values()], columns=chart_data.keys())
-
 import streamlit as st
 import random
 import time
