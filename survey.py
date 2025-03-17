@@ -12,8 +12,11 @@ st.title("🎉 이프로 시음 조사 경품 🎉")
 # 세션 상태 초기화
 if "participants" not in st.session_state:
     st.session_state.participants = []  # 참가자 이름 리스트 초기화
-    st.session_state.prizes = ["100%", "20%", "3%"] + ["2%"] * 77
-    random.shuffle(st.session_state.prizes)
+    
+    # 1, 2, 3등이 반드시 포함된 경품 리스트 생성 (총 30명)
+    st.session_state.prizes = ["100%", "20%", "3%"] + ["2%"] * 27
+    random.shuffle(st.session_state.prizes)  # 경품 순서를 랜덤으로 섞기
+    
     st.session_state.current_index = 0
     st.session_state.winners = {"100%": [], "20%": [], "3%": [], "2%": 0}
 
@@ -21,10 +24,12 @@ if "participants" not in st.session_state:
 name_input = st.text_input("참가자 이름을 입력하세요:", key="name_input")
 
 if name_input:  # 이름이 입력되었을 때 바로 처리
-    if name_input not in st.session_state.participants:
+    if len(st.session_state.participants) >= 30:
+        st.warning("참가자는 최대 30명까지만 등록할 수 있습니다!")
+    elif name_input not in st.session_state.participants:
         st.session_state.participants.append(name_input)
         st.success(f"참가자 '{name_input}'가 등록되었습니다!")
-        
+
         # 결과 확인 자동 실행
         if st.session_state.current_index < len(st.session_state.participants):
             participant = st.session_state.participants[st.session_state.current_index]
@@ -101,8 +106,8 @@ if name_input:  # 이름이 입력되었을 때 바로 처리
             st.session_state.current_index += 1
 
         else:
-            if len(st.session_state.participants) < 80:
-                st.warning("참가자가 아직 80명이 등록되지 않았습니다!")
+            if len(st.session_state.participants) < 30:
+                st.warning("참가자가 아직 모두 등록되지 않았습니다!")
             else:
                 st.success("모든 참가자의 제비뽑기가 완료되었습니다!")
                 st.balloons()
