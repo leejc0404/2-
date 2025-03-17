@@ -4,7 +4,7 @@ import time
 from PIL import Image
 import os
 
-# 페이지 설정 (레이아웃을 "wide"로 설정하여 화면을 넓게 사용)
+# 페이지 설정
 st.set_page_config(page_title="이프로 소비자 조사 경품", page_icon="🎉", layout="wide")
 
 st.title("🎉 이프로 시음 조사 경품 🎉")
@@ -15,23 +15,30 @@ if "participants" not in st.session_state:
     
     # 총 참가자 수 (예: 최대 10명)
     total_participants = 10
-    
-    # 경품 리스트 생성 및 섹션별 나누기
-    section_size = total_participants // 3  # 각 섹션 크기 (정수로 나눔)
-    
-    # 각 섹션에 해당하는 경품 리스트 생성
-    prizes_100 = ["100%"] * section_size  # 첫 섹션은 100%
-    prizes_3 = ["3%"] * section_size      # 두 번째 섹션은 3%
-    prizes_20 = ["20%"] * (total_participants - section_size * 2)  # 나머지는 20%
 
-    # 각 섹션을 랜덤으로 섞음
-    random.shuffle(prizes_100)
-    random.shuffle(prizes_3)
-    random.shuffle(prizes_20)
+    # 경품 리스트 생성 함수
+    def generate_prize_list(total_participants):
+        # Divide the total participants into thirds
+        first_third = total_participants // 3
+        middle_third = total_participants // 3
+        last_third = total_participants - first_third - middle_third
 
-    # 최종 경품 리스트 결합
-    st.session_state.prizes = prizes_100 + prizes_3 + prizes_20
-    
+        # Create placeholders for each section
+        first_section = ['2%'] * first_third
+        middle_section = ['2%'] * middle_third
+        last_section = ['2%'] * last_third
+
+        # Place the specific prizes in their respective sections
+        first_section[random.randint(0, first_third - 1)] = '3%'
+        middle_section[random.randint(0, middle_third - 1)] = '100%'
+        last_section[random.randint(0, last_third - 1)] = '20%'
+
+        # Combine all sections into a single list
+        prize_list = first_section + middle_section + last_section
+        return prize_list
+
+    # 경품 리스트 생성 및 세션 상태에 저장
+    st.session_state.prizes = generate_prize_list(total_participants)
     st.session_state.winners = {"100%": [], "20%": [], "3%": [], "2%": 0}
 
 # 참가자 이름 입력받기
