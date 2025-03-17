@@ -14,7 +14,7 @@ if "participants" not in st.session_state:
     st.session_state.participants = []  # 참가자 이름 리스트 초기화
     
     # 1, 2, 3등이 반드시 포함된 경품 리스트 생성 (총 30명)
-    st.session_state.prizes = ["100%", "20%", "3%"] + ["2%"] * 67
+    st.session_state.prizes = ["100%", "20%", "3%"] + ["2%"] * 7
     random.shuffle(st.session_state.prizes)  # 경품 순서를 랜덤으로 섞기
     
     st.session_state.current_index = 0
@@ -24,11 +24,11 @@ if "participants" not in st.session_state:
 name_input = st.text_input("참가자 이름을 입력하세요:", key="name_input")
 
 if name_input:  # 이름이 입력되었을 때 바로 처리
-    if len(st.session_state.participants) >= 70:
+    if len(st.session_state.participants) >= 10:
         st.warning("참가자는 최대 30명까지만 등록할 수 있습니다!")
     elif name_input not in st.session_state.participants:
         st.session_state.participants.append(name_input)
-        st.success(f"참가자 '{name_input}'가 등록되었습니다!")
+        st.success(f"참가자 '{name_input}'님이 등록되었습니다!")
 
         # 결과 확인 자동 실행
         if st.session_state.current_index < len(st.session_state.participants):
@@ -48,7 +48,7 @@ if name_input:  # 이름이 입력되었을 때 바로 처리
             img_path = prize_images.get(prize, None)
 
             # 좌우 레이아웃 설정 (화면 폭 축소: 비율 조정)
-            col1, col2 = st.columns([2, 1])  # 왼쪽(결과): 비율 2, 오른쪽(이미지): 비율 1
+            col1, col2 = st.columns([4, 1])  # 왼쪽(결과): 비율 4, 오른쪽(이미지): 비율 1
 
             # 왼쪽: 결과 및 당첨자 목록 표시
             with col1:
