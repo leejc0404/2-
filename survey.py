@@ -140,3 +140,25 @@ if name_input:
                 st.image(img)  
             else:
                 st.info(f"(이미지 파일 '{img_path}' 없음)")
+
+# **Download Button for Results**
+if len(st.session_state.participants) > 0:
+    result_df = pd.DataFrame({
+        "순서": range(1, len(st.session_state.participants) + 1),
+        "이름": st.session_state.participants,
+        "당첨 경품": [st.session_state.prizes[i] for i in range(len(st.session_state.participants))]
+    })
+
+    @st.cache_data
+    def convert_df_to_csv(df):
+        return df.to_csv(index=False).encode('utf-8')
+
+    csv_data = convert_df_to_csv(result_df)
+
+    # Display download button for CSV file
+    st.download_button(
+        label="결과 다운로드 (CSV)",
+        data=csv_data,
+        file_name="참여_결과.csv",
+        mime="text/csv"
+    )
