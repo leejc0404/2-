@@ -35,23 +35,26 @@ if name_input:  # 이름이 입력되었을 때 바로 처리
             total_participants = len(st.session_state.participants)
 
             if participant_number == total_participants:  # 마지막 참가자가 등록되었을 때만 등수 배정 시작
-                # 앞 33% 인원에서 랜덤으로 3등 배정
+                # 앞 33% 인원에서 랜덤으로 3등 배정 (비어 있지 않은 경우에만 처리)
                 if len(st.session_state.winners["3%"]) == 0:
                     group_3 = st.session_state.participants[:total_participants // 3]
-                    winner_3 = random.choice(group_3)
-                    st.session_state.winners["3%"].append(winner_3)
+                    if group_3:  # 그룹이 비어 있지 않은 경우에만 처리
+                        winner_3 = random.choice(group_3)
+                        st.session_state.winners["3%"].append(winner_3)
 
-                # 중간 34~66% 인원에서 랜덤으로 2등 배정
+                # 중간 34~66% 인원에서 랜덤으로 2등 배정 (비어 있지 않은 경우에만 처리)
                 if len(st.session_state.winners["20%"]) == 0:
                     group_2 = st.session_state.participants[total_participants // 3:2 * total_participants // 3]
-                    winner_2 = random.choice(group_2)
-                    st.session_state.winners["20%"].append(winner_2)
+                    if group_2:  # 그룹이 비어 있지 않은 경우에만 처리
+                        winner_2 = random.choice(group_2)
+                        st.session_state.winners["20%"].append(winner_2)
 
-                # 마지막 67~100% 인원에서 랜덤으로 1등 배정
+                # 마지막 67~100% 인원에서 랜덤으로 1등 배정 (비어 있지 않은 경우에만 처리)
                 if len(st.session_state.winners["100%"]) == 0:
                     group_1 = st.session_state.participants[2 * total_participants // 3:]
-                    winner_1 = random.choice(group_1)
-                    st.session_state.winners["100%"].append(winner_1)
+                    if group_1:  # 그룹이 비어 있지 않은 경우에만 처리
+                        winner_1 = random.choice(group_1)
+                        st.session_state.winners["100%"].append(winner_1)
 
             # 나머지 참가자는 모두 "2%"로 설정 (기본값)
             if participant not in st.session_state.winners["100%"] and participant not in st.session_state.winners["20%"] and participant not in st.session_state.winners["3%"]:
