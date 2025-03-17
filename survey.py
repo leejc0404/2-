@@ -1,4 +1,3 @@
-pip install pandas
 import pandas as pd
 chart_df = pd.DataFrame([chart_data.values()], columns=chart_data.keys())
 
