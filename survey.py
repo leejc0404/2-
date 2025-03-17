@@ -22,7 +22,7 @@ name_input = st.text_input("참가자 이름을 입력하세요:")
 if name_input:  
     if name_input not in st.session_state.participants:
         st.session_state.participants.append(name_input)
-        st.success(f"참가자 '{name_input}'가 등록되었습니다!")
+        st.success(f"참가자 '{name_input}'님이 등록되었습니다!")
         
         # 입력창 초기화 (빈칸으로 설정)
         st.experimental_set_query_params(name="")
@@ -51,21 +51,21 @@ if name_input:
             with col1:
                 if prize == "100%":
                     st.markdown(
-                        f"<h1 style='color: gold;'>🎉 축하합니다! {participant}님이 1등입니다! 🎉</h1>",
+                        f"<h1 style='color: gold;'>🎉 축하합니다! {participant}님! 1등입니다! 이제 텀블러에 이프로 담아서 마셔보세요! :) 🎉</h1>",
                         unsafe_allow_html=True,
                     )
                     st.balloons()
 
                 elif prize == "20%":
                     st.markdown(
-                        f"<h2 style='color: silver;'>🥈 {participant}님이 2등입니다! 축하드립니다! 🥈</h2>",
+                        f"<h2 style='color: silver;'>🥈 {participant}님이 2등입니다! 이제 운동 후, 이프로 마시고 이 수건을 써보세요! 축하드립니다! 🥈</h2>",
                         unsafe_allow_html=True,
                     )
                     st.snow()
 
                 elif prize == "3%":
                     st.markdown(
-                        f"<h3 style='color: bronze;'>🥉 {participant}님이 3등입니다! 축하드립니다! 🥉</h3>",
+                        f"<h3 style='color: bronze;'>🥉 {participant}님이 3등입니다! 이프로 마시고 양치해야겠죠? 축하드립니다! 🥉</h3>",
                         unsafe_allow_html=True,
                     )
 
