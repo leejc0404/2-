@@ -46,7 +46,6 @@ if name_input:
         st.session_state.participants.append(name_input)
         st.success(f"참가자 '{name_input}'님이 등록되었습니다!")
 
-
         # 결과 확인 자동 실행 (순서대로 매칭)
         current_index = len(st.session_state.participants) - 1
         prize = st.session_state.prizes[current_index]  # 미리 섞어둔 경품 리스트에서 순서대로 가져옴
@@ -63,10 +62,10 @@ if name_input:
         }
         img_path = prize_images.get(prize, None)
 
-        # 좌우 레이아웃 설정 (화면 폭 축소: 비율 조정)
-        col1, col2 = st.columns([2, 1])  # 왼쪽(결과): 비율 2, 오른쪽(이미지): 비율 1
+        # 좌우 레이아웃 설정 (결과 텍스트, 차트, 이미지)
+        col1, col2, col3 = st.columns([2, 1, 1])  # 왼쪽(결과): 비율 2, 가운데(차트): 비율 1, 오른쪽(이미지): 비율 1
 
-        # 왼쪽: 결과 및 당첨자 목록 표시
+        # 왼쪽: 결과 텍스트 표시
         with col1:
             if prize == "100%":
                 st.markdown(
@@ -89,7 +88,7 @@ if name_input:
                 )
             else:
                 st.markdown(
-                    f"<p style='color: pink;'>{name_input}님, 이프로로 오늘 일상도 특별하게!!</p>",
+                    f"<h4 style='color: pink;'>{name_input}님, 이프로로 오늘 일상도 특별하게!!</h4>",
                     unsafe_allow_html=True,
                 )
 
@@ -114,15 +113,19 @@ if name_input:
                 if names:
                     st.write(f"{winners}: {names}")
 
-        # 오른쪽: 이미지 표시 (원본 크기 유지)
+        # 가운데: 차트 표시 (참여 인원 vs 최대 인원)
         with col2:
+            total_registered = len(st.session_state.participants)
+            remaining_slots = total_participants - total_registered
+            
+            # 차트 형태로 참여 인원 표시 (st.metric 사용)
+            st.metric(label="참여 인원", value=f"{total_registered}명", delta=f"-{remaining_slots}명 남음")
+
+        # 오른쪽: 이미지 표시 (원본 크기 유지)
+        with col3:
             if img_path and os.path.exists(img_path):
                 img = Image.open(img_path)
                 # 원본 크기로 이미지 표시
                 st.image(img)  
             else:
                 st.info(f"(이미지 파일 '{img_path}' 없음)")
-
-# 진행 상황 표시 (넓은 화면에 맞게 진행 바 표시)
-progress = (len(st.session_state.participants) / total_participants) if total_participants > 0 else 0
-st.progress(progress)
