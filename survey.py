@@ -7,7 +7,8 @@ import os
 # Set page configuration
 st.set_page_config(page_title="이프로 소비자 조사 경품", page_icon="🎉", layout="wide")
 
-st.title("🎉 이프로 시음 조사 경품 🎉")
+#st.title("🎉 이프로복숭아 소비자 조사 경품 🎉  - 슬로건 : 이프로부족할때, 일상의 특별함을 더하다")
+st.markdown("<h2 style='color: orange;'>슬로건: 이프로부족할때, 일상의 특별함을 더하다</h2>", unsafe_allow_html=True)
 
 # Initialize total participants
 total_participants = 10  # Set the maximum number of participants
@@ -50,7 +51,7 @@ if name_input:
         current_index = len(st.session_state.participants) - 1
         prize = st.session_state.prizes[current_index]  # 미리 섞어둔 경품 리스트에서 순서대로 가져옴
 
-        with st.spinner(f"{name_input}님의 결과를 뽑는 중입니다..."):
+        with st.spinner(f"{name_input}님의 결과를 뽑는 중입니다... (두구두구)"):
             time.sleep(2)
 
         # 이미지 경로 설정
@@ -76,21 +77,22 @@ if name_input:
 
             elif prize == "20%":
                 st.markdown(
-                    f"<h2 style='color: pink;'>🥈 {name_input}님이 2등입니다! 이제 운동 후, 이프로 마시고 이 수건을 써보세요! 축하드립니다! 🥈</h2>",
+                    f"<h2 style='color: pink;'>🥈 축하드립니다! {name_input}님이 2등입니다! 이제 운동 후, 이프로 마시고 이 수건을 써보세요! 🥈</h2>",
                     unsafe_allow_html=True,
                 )
-                st.snow()
+                st.balloons()
 
             elif prize == "3%":
                 st.markdown(
-                    f"<h3 style='color: pink;'>🥉 {name_input}님이 3등입니다! 이프로 마시고 양치해야겠죠? 축하드립니다! 🥉</h3>",
+                    f"<h3 style='color: pink;'>🥉 축하합니다! {name_input}님이 3등입니다! 이프로가 건강해져도 마시고 양치해야겠죠? 🥉</h3>",
                     unsafe_allow_html=True,
                 )
             else:
                 st.markdown(
-                    f"<h4 style='color: pink;'>{name_input}님, 이프로로 오늘 일상도 특별하게!!</h4>",
+                    f"<h4 style='color: pink;'>{name_input}님, 이프로로 오늘의 일상도 특별하게!!</h4>",
                     unsafe_allow_html=True,
                 )
+                st.balloons()
 
             # 현재까지의 당첨자 목록 표시 (결과와 함께 출력)
             st.subheader("📊 현재까지의 당첨자 목록")
