@@ -25,6 +25,9 @@ if name_input:  # 이름이 입력되었을 때 바로 처리
         st.session_state.participants.append(name_input)
         st.success(f"참가자 '{name_input}'가 등록되었습니다!")
         
+        # 입력창 초기화 (빈칸으로 설정)
+        st.session_state.name_input = ""
+
         # 결과 확인 자동 실행
         if st.session_state.current_index < len(st.session_state.participants):
             participant = st.session_state.participants[st.session_state.current_index]
@@ -48,22 +51,38 @@ if name_input:  # 이름이 입력되었을 때 바로 처리
             # 왼쪽: 결과 및 당첨자 목록 표시
             with col1:
                 if prize == "100%":
+                    # 1등: 금색 텍스트와 풍선 효과
                     st.markdown(
                         f"<h1 style='color: gold;'>🎉 축하합니다! {participant}님이 1등입니다! 🎉</h1>",
                         unsafe_allow_html=True,
                     )
                     st.balloons()  # 풍선 효과 추가
+
                 elif prize == "20%":
+                    # 2등: 은색 텍스트와 눈 내리는 효과
                     st.markdown(
                         f"<h2 style='color: silver;'>🥈 {participant}님이 2등입니다! 축하드립니다! 🥈</h2>",
                         unsafe_allow_html=True,
                     )
+                    st.snow()  # 눈 내리는 효과 추가
+
                 elif prize == "3%":
+                    # 3등: 동색 텍스트와 깜빡이는 텍스트 효과
                     st.markdown(
                         f"<h3 style='color: bronze;'>🥉 {participant}님이 3등입니다! 축하드립니다! 🥉</h3>",
                         unsafe_allow_html=True,
                     )
+                    st.markdown(
+                        "<style>@keyframes blink {0%,100%{opacity:1;}50%{opacity:0.5;}} .blink {animation:blink 1s infinite;}</style>",
+                        unsafe_allow_html=True,
+                    )
+                    st.markdown(
+                        f"<p class='blink' style='color: bronze; font-size:20px;'>✨ 특별한 행운을 받으셨습니다! ✨</p>",
+                        unsafe_allow_html=True,
+                    )
+
                 else:
+                    # 나머지 당첨자(2%)
                     st.write(f"{participant}님, 아쉽지만 다음 기회를 노려보세요!")
 
                 # 현재까지의 당첨자 목록 표시 (결과와 함께 출력)
