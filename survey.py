@@ -3,6 +3,7 @@ import random
 import time
 from PIL import Image
 import os
+import pandas as pd
 
 # 페이지 설정 (레이아웃을 "wide"로 설정하여 화면을 넓게 사용)
 st.set_page_config(page_title="이프로 시음 조사 경품", page_icon="🎉", layout="wide")
@@ -123,3 +124,11 @@ if name_input:  # 이름이 입력되었을 때 바로 처리
 # 진행 상황 표시 (넓은 화면에 맞게 진행 바 표시)
 progress = (st.session_state.current_index / len(st.session_state.participants)) if len(st.session_state.participants) > 0 else 0
 st.progress(progress)
+
+# 참여 인원 차트 표시 (실시간 업데이트)
+st.subheader("📈 참여 인원 현황")
+data = pd.DataFrame({
+    "참여 인원": [len(st.session_state.participants)],
+    "남은 인원": [70 - len(st.session_state.participants)]
+})
+st.bar_chart(data.set_index(["참여 인원", "남은 인원"]))
