@@ -22,27 +22,33 @@ if name_input:  # 이름이 입력되었을 때 바로 처리
         st.warning("참가자는 최대 10명까지만 등록할 수 있습니다!")
     elif name_input not in st.session_state.participants:
         st.session_state.participants.append(name_input)
-        participant_index = len(st.session_state.participants) - 1
         
         # 등수 조건에 따라 경품 할당 (랜덤 선정)
         prize = None
-        if participant_index < 3:  # 첫 번째 그룹 (1~3번째 참가자)
+        winner = None
+        
+        if len(st.session_state.participants) <= 3:  # 첫 번째 그룹 (1~3번째 참가자)
             eligible_group = [p for p in st.session_state.participants[:3] if p != st.session_state.winners["3%"]]
             if not st.session_state.winners["3%"] and eligible_group:
+                random.shuffle(eligible_group)  # 그룹 내 순서를 섞음
                 prize = "3%"
-                winner = random.choice(eligible_group)
+                winner = eligible_group[0]  # 섞인 그룹에서 첫 번째를 선택
                 st.session_state.winners["3%"] = winner
-        elif 3 <= participant_index < 6:  # 두 번째 그룹 (4~6번째 참가자)
+
+        elif len(st.session_state.participants) <= 6:  # 두 번째 그룹 (4~6번째 참가자)
             eligible_group = [p for p in st.session_state.participants[3:6] if p != st.session_state.winners["20%"]]
             if not st.session_state.winners["20%"] and eligible_group:
+                random.shuffle(eligible_group)  # 그룹 내 순서를 섞음
                 prize = "20%"
-                winner = random.choice(eligible_group)
+                winner = eligible_group[0]  # 섞인 그룹에서 첫 번째를 선택
                 st.session_state.winners["20%"] = winner
-        elif participant_index >= 6:  # 세 번째 그룹 (7~10번째 참가자)
+
+        elif len(st.session_state.participants) <= 10:  # 세 번째 그룹 (7~10번째 참가자)
             eligible_group = [p for p in st.session_state.participants[6:10] if p != st.session_state.winners["100%"]]
             if not st.session_state.winners["100%"] and eligible_group:
+                random.shuffle(eligible_group)  # 그룹 내 순서를 섞음
                 prize = "100%"
-                winner = random.choice(eligible_group)
+                winner = eligible_group[0]  # 섞인 그룹에서 첫 번째를 선택
                 st.session_state.winners["100%"] = winner
 
         if prize is None:  # 기타 참가자 처리 (2%)
