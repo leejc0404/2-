@@ -25,30 +25,29 @@ if name_input:  # 이름이 입력되었을 때 바로 처리
         participant_index = len(st.session_state.participants) - 1
         
         # 등수 조건에 따라 경품 할당 (랜덤 선정)
+        prize = None
         if participant_index < 3:  # 첫 번째 그룹 (1~3번째 참가자)
-            eligible_group = st.session_state.participants[:3]
-            if not st.session_state.winners["3%"]:
+            eligible_group = [p for p in st.session_state.participants[:3] if p != st.session_state.winners["3%"]]
+            if not st.session_state.winners["3%"] and eligible_group:
                 prize = "3%"
                 winner = random.choice(eligible_group)
                 st.session_state.winners["3%"] = winner
-            else:
-                prize = None
         elif 3 <= participant_index < 6:  # 두 번째 그룹 (4~6번째 참가자)
-            eligible_group = st.session_state.participants[3:6]
-            if not st.session_state.winners["20%"]:
+            eligible_group = [p for p in st.session_state.participants[3:6] if p != st.session_state.winners["20%"]]
+            if not st.session_state.winners["20%"] and eligible_group:
                 prize = "20%"
                 winner = random.choice(eligible_group)
                 st.session_state.winners["20%"] = winner
-            else:
-                prize = None
-        else:  # 세 번째 그룹 (7~10번째 참가자)
-            eligible_group = st.session_state.participants[6:10]
-            if not st.session_state.winners["100%"]:
+        elif participant_index >= 6:  # 세 번째 그룹 (7~10번째 참가자)
+            eligible_group = [p for p in st.session_state.participants[6:10] if p != st.session_state.winners["100%"]]
+            if not st.session_state.winners["100%"] and eligible_group:
                 prize = "100%"
                 winner = random.choice(eligible_group)
                 st.session_state.winners["100%"] = winner
-            else:
-                prize = None
+
+        if prize is None:  # 기타 참가자 처리 (2%)
+            prize = "2%"
+            winner = name_input
 
         with st.spinner(f"{name_input}님의 결과를 뽑는 중입니다..."):
             time.sleep(2)
@@ -58,6 +57,7 @@ if name_input:  # 이름이 입력되었을 때 바로 처리
             "100%": ".devcontainer/stanley.png",
             "20%": ".devcontainer/teto.png",
             "3%": ".devcontainer/euthymol.png",
+            "2%": ".devcontainer/2_percent.png"
         }
         img_path = prize_images.get(prize, None)
 
