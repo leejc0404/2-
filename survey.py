@@ -13,7 +13,7 @@ st.title("🎉 이프로복숭아 소비자 조사 경품 🎉\n - 슬로건 : �
 #st.markdown("<h2 style='color: orange;'>슬로건: 이프로부족할때, 일상의 특별함을 더하다</h2>", unsafe_allow_html=True)
 
 # Initialize total participants
-total_participants = 10  # Set the maximum number of participants
+total_participants = 20  # Set the maximum number of participants
 
 # Session state initialization
 if "participants" not in st.session_state:
@@ -66,7 +66,7 @@ if name_input:
         img_path = prize_images.get(prize, None)
 
         # 좌우 레이아웃 설정 (결과 텍스트, 차트, 이미지)
-        col1, col2, col3 = st.columns([2, 0.5, 1])  # 왼쪽(결과): 비율 2, 가운데(차트): 비율 0.5, 오른쪽(이미지): 비율 1
+        col1, col3, col2 = st.columns([2, 1, 0.5])  # 왼쪽(결과): 비율 2, 가운데(차트): 비율 0.5, 오른쪽(이미지): 비율 1
 
         # 왼쪽: 결과 텍스트 표시
         with col1:
