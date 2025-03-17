@@ -129,7 +129,7 @@ if name_input:
             
             chart_df = pd.DataFrame([chart_data.values()], columns=chart_data.keys())
             st.bar_chart(chart_df)
-
+            
         # 오른쪽: 이미지 표시 (원본 크기 유지)
         with col3:
             if img_path and os.path.exists(img_path):
