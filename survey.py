@@ -13,9 +13,24 @@ st.title("🎉 이프로 시음 조사 경품 🎉")
 if "participants" not in st.session_state:
     st.session_state.participants = []  # 참가자 이름 리스트 초기화
     
-    # 경품 리스트 생성 (총 10명, 1등/2등/3등 포함)
-    st.session_state.prizes = ["100%", "20%", "3%"] + ["2%"] * 7  # 총 10명 경품 리스트
-    random.shuffle(st.session_state.prizes)  # 경품 순서를 랜덤으로 섞기
+    # 총 참가자 수 (예: 최대 10명)
+    total_participants = 10
+    
+    # 경품 리스트 생성 및 섹션별 나누기
+    section_size = total_participants // 3  # 각 섹션 크기 (정수로 나눔)
+    
+    # 각 섹션에 해당하는 경품 리스트 생성
+    prizes_100 = ["100%"] * section_size  # 첫 섹션은 100%
+    prizes_3 = ["3%"] * section_size      # 두 번째 섹션은 3%
+    prizes_20 = ["20%"] * (total_participants - section_size * 2)  # 나머지는 20%
+
+    # 각 섹션을 랜덤으로 섞음
+    random.shuffle(prizes_100)
+    random.shuffle(prizes_3)
+    random.shuffle(prizes_20)
+
+    # 최종 경품 리스트 결합
+    st.session_state.prizes = prizes_100 + prizes_3 + prizes_20
     
     st.session_state.winners = {"100%": [], "20%": [], "3%": [], "2%": 0}
 
@@ -23,8 +38,8 @@ if "participants" not in st.session_state:
 name_input = st.text_input("참가자 이름을 입력하세요:", key="name_input")
 
 if name_input:  # 이름이 입력되었을 때 바로 처리
-    if len(st.session_state.participants) >= 10:
-        st.warning("참가자는 최대 10명까지만 등록할 수 있습니다!")
+    if len(st.session_state.participants) >= total_participants:
+        st.warning(f"참가자는 최대 {total_participants}명까지만 등록할 수 있습니다!")
     elif name_input not in st.session_state.participants:
         st.session_state.participants.append(name_input)
         st.success(f"참가자 '{name_input}'님이 등록되었습니다!")
@@ -85,9 +100,9 @@ if name_input:  # 이름이 입력되었을 때 바로 처리
                 st.session_state.winners[prize].append(name_input)
 
             # 총 참석 인원 및 당첨자 목록 표시
-            total_participants = len(st.session_state.participants)
+            total_registered = len(st.session_state.participants)
             two_percent_count = st.session_state.winners["2%"]
-            st.write(f"총 참석 인원: {total_participants}명")
+            st.write(f"총 참석 인원: {total_registered}명")
             st.write(f"이프로복숭아 설문 총 인원: {two_percent_count}명")
 
             # 1등, 2등, 3등 이름 공개
@@ -106,5 +121,5 @@ if name_input:  # 이름이 입력되었을 때 바로 처리
                 st.info(f"(이미지 파일 '{img_path}' 없음)")
 
 # 진행 상황 표시 (넓은 화면에 맞게 진행 바 표시)
-progress = (len(st.session_state.participants) / len(st.session_state.prizes)) if len(st.session_state.prizes) > 0 else 0
+progress = (len(st.session_state.participants) / total_participants) if total_participants > 0 else 0
 st.progress(progress)
