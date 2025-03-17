@@ -24,7 +24,7 @@ if "participants" not in st.session_state:
 name_input = st.text_input("참가자 이름을 입력하세요:", key="name_input")
 
 if name_input:  # 이름이 입력되었을 때 바로 처리
-    if len(st.session_state.participants) >= 30:
+    if len(st.session_state.participants) >= 6:
         st.warning("참가자는 최대 30명까지만 등록할 수 있습니다!")
     elif name_input not in st.session_state.participants:
         st.session_state.participants.append(name_input)
@@ -93,12 +93,12 @@ if name_input:  # 이름이 입력되었을 때 바로 처리
                     if names:
                         st.write(f"{winners}: {names}")
 
-            # 오른쪽: 이미지 표시 (크기 조정)
+            # 오른쪽: 이미지 표시 (원본 크기 유지)
             with col2:
                 if img_path and os.path.exists(img_path):
                     img = Image.open(img_path)
-                    resized_img = img.resize((300, 300))  # 이미지 크기 조정 (너비 x 높이)
-                    st.image(resized_img, use_container_width=True)  # 이미지 크기를 화면에 맞게 표시
+                    # 원본 크기로 이미지 표시
+                    st.image(img)  
                 else:
                     st.info(f"(이미지 파일 '{img_path}' 없음)")
 
@@ -106,7 +106,7 @@ if name_input:  # 이름이 입력되었을 때 바로 처리
             st.session_state.current_index += 1
 
         else:
-            if len(st.session_state.participants) < 6:
+            if len(st.session_state.participants) < 30:
                 st.warning("참가자가 아직 모두 등록되지 않았습니다!")
             else:
                 st.success("모든 참가자의 제비뽑기가 완료되었습니다!")
