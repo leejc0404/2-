@@ -66,7 +66,7 @@ if name_input:
         img_path = prize_images.get(prize, None)
 
         # 좌우 레이아웃 설정 (결과 텍스트, 차트, 이미지)
-        col1, col2, col3 = st.columns([2, 1, 1])  # 왼쪽(결과): 비율 2, 가운데(차트): 비율 1, 오른쪽(이미지): 비율 1
+        col1, col2, col3 = st.columns([2, 0.5, 1])  # 왼쪽(결과): 비율 2, 가운데(차트): 비율 0.5, 오른쪽(이미지): 비율 1
 
         # 왼쪽: 결과 텍스트 표시
         with col1:
