@@ -34,7 +34,14 @@ if name_input:  # 이름이 입력되었을 때 바로 처리
         if st.session_state.current_index < len(st.session_state.participants):
             participant = st.session_state.participants[st.session_state.current_index]
             prize = st.session_state.prizes[st.session_state.current_index]
-
+            
+        # 랜덤으로 등수 부여 (1~10번 중 하나를 선택)
+        prize_index = random.randint(0, len(st.session_state.prizes) - 1)
+        prize = st.session_state.prizes.pop(prize_index)  # 선택된 등수 제거
+    
+        # 랜덤 등수 확인용 디버깅 메시지 출력 (추가됨 ✅)
+        st.info(f"🔍 디버그: 랜덤으로 뽑힌 등수는 리스트의 {prize_index + 1}번째 항목이며, 당첨된 경품은 '{prize}'입니다.")
+            
             with st.spinner(f"{participant}님의 결과를 뽑는 중입니다..."):
                 time.sleep(2)
 
