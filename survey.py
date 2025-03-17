@@ -39,16 +39,8 @@ if "participants" not in st.session_state:
     st.session_state.prizes = generate_prize_list(total_participants)
     st.session_state.winners = {"100%": [], "20%": [], "3%": [], "2%": 0}
 
-# 참가자 이름 입력 창 크기 조정 (HTML/CSS 활용)
-name_input_html = """
-<div style="text-align: center;">
-    <input type="text" id="name_input" placeholder="참가자 이름을 입력하세요" style="width: 20%; padding: 10px; font-size: 16px;">
-</div>
-"""
-st.markdown(name_input_html, unsafe_allow_html=True)
-
+# Participant input and processing
 name_input = st.text_input("참가자 이름을 입력하세요:", key="name_input")
-
 
 if name_input:
     if len(st.session_state.participants) >= total_participants:
