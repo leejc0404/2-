@@ -12,11 +12,6 @@ st.title("🎉 이프로 시음 조사 경품 🎉")
 # 세션 상태 초기화
 if "participants" not in st.session_state:
     st.session_state.participants = []  # 참가자 이름 리스트 초기화
-    
-    # 1, 2, 3등이 반드시 포함된 경품 리스트 생성 (총 30명)
-    st.session_state.prizes = ["100%", "20%", "3%"] + ["2%"] * 3
-    random.shuffle(st.session_state.prizes)  # 경품 순서를 랜덤으로 섞기
-    
     st.session_state.current_index = 0
     st.session_state.winners = {"100%": [], "20%": [], "3%": [], "2%": 0}
 
@@ -24,16 +19,26 @@ if "participants" not in st.session_state:
 name_input = st.text_input("참가자 이름을 입력하세요:", key="name_input")
 
 if name_input:  # 이름이 입력되었을 때 바로 처리
-    if len(st.session_state.participants) >= 6:
-        st.warning("참가자는 최대 30명까지만 등록할 수 있습니다!")
+    if len(st.session_state.participants) >= 70:
+        st.warning("참가자는 최대 70명까지만 등록할 수 있습니다!")
     elif name_input not in st.session_state.participants:
         st.session_state.participants.append(name_input)
-        st.success(f"참가자 '{name_input}'님이 등록되었습니다!")
+        st.success(f"참가자 '{name_input}'가 등록되었습니다!")
 
         # 결과 확인 자동 실행
         if st.session_state.current_index < len(st.session_state.participants):
             participant = st.session_state.participants[st.session_state.current_index]
-            prize = st.session_state.prizes[st.session_state.current_index]
+            participant_number = st.session_state.current_index + 1  # 참가자 번호 (1부터 시작)
+
+            # 등수 결정: 참가자 번호에 따라 등수 범위 설정
+            if 60 <= participant_number <= 70:
+                prize = "100%"  # 1등
+            elif 1 <= participant_number <= 30:
+                prize = "20%"  # 2등
+            elif 31 <= participant_number <= 59:
+                prize = "3%"   # 3등
+            else:
+                prize = "2%"   # 나머지
 
             with st.spinner(f"{participant}님의 결과를 뽑는 중입니다..."):
                 time.sleep(2)
@@ -54,7 +59,7 @@ if name_input:  # 이름이 입력되었을 때 바로 처리
             with col1:
                 if prize == "100%":
                     st.markdown(
-                        f"<h1 style='color: pink;'>🥇 축하합니다! {participant}님! 1등입니다! 이제 텀블러에 이프로 담아서 마셔보세요! :) 🥇</h1>",
+                        f"<h1 style='color: pink;'>🎉 축하합니다! {participant}님! 1등입니다! 이제 텀블러에 이프로 담아서 마셔보세요! :) 🎉</h1>",
                         unsafe_allow_html=True,
                     )
                     st.balloons()
@@ -72,7 +77,10 @@ if name_input:  # 이름이 입력되었을 때 바로 처리
                         unsafe_allow_html=True,
                     )
                 else:
-                    st.write(f"{participant}님, 이프로로 오늘 일상도 특별하게!!")
+                    st.markdown(
+                        f"<p style='color: pink;'>{participant}님, 이프로로 오늘 일상도 특별하게!!</p>",
+                        unsafe_allow_html=True,
+                    )
 
                 # 현재까지의 당첨자 목록 표시 (결과와 함께 출력)
                 st.subheader("📊 현재까지의 당첨자 목록")
@@ -106,7 +114,7 @@ if name_input:  # 이름이 입력되었을 때 바로 처리
             st.session_state.current_index += 1
 
         else:
-            if len(st.session_state.participants) < 30:
+            if len(st.session_state.participants) < 70:
                 st.warning("참가자가 아직 모두 등록되지 않았습니다!")
             else:
                 st.success("모든 참가자의 제비뽑기가 완료되었습니다!")
