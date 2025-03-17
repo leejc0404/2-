@@ -13,7 +13,7 @@ st.title("🎉 이프로복숭아 소비자 조사 경품 🎉\n - 슬로건 : �
 #st.markdown("<h2 style='color: orange;'>슬로건: 이프로부족할때, 일상의 특별함을 더하다</h2>", unsafe_allow_html=True)
 
 # Initialize total participants
-total_participants = 20  # Set the maximum number of participants
+total_participants = 70  # Set the maximum number of participants
 
 # Session state initialization
 if "participants" not in st.session_state:
