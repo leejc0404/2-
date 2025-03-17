@@ -14,7 +14,7 @@ if "participants" not in st.session_state:
     st.session_state.participants = []  # 참가자 이름 리스트 초기화
     
     # 1, 2, 3등이 반드시 포함된 경품 리스트 생성 (총 30명)
-    st.session_state.prizes = ["100%", "20%", "3%"] + ["2%"] * 27
+    st.session_state.prizes = ["100%", "20%", "3%"] + ["2%"] * 67
     random.shuffle(st.session_state.prizes)  # 경품 순서를 랜덤으로 섞기
     
     st.session_state.current_index = 0
@@ -24,7 +24,7 @@ if "participants" not in st.session_state:
 name_input = st.text_input("참가자 이름을 입력하세요:", key="name_input")
 
 if name_input:  # 이름이 입력되었을 때 바로 처리
-    if len(st.session_state.participants) >= 30:
+    if len(st.session_state.participants) >= 70:
         st.warning("참가자는 최대 30명까지만 등록할 수 있습니다!")
     elif name_input not in st.session_state.participants:
         st.session_state.participants.append(name_input)
@@ -48,7 +48,7 @@ if name_input:  # 이름이 입력되었을 때 바로 처리
             img_path = prize_images.get(prize, None)
 
             # 좌우 레이아웃 설정 (화면 폭 축소: 비율 조정)
-            col1, col2 = st.columns([3, 1])  # 왼쪽(결과): 비율 3, 오른쪽(이미지): 비율 1
+            col1, col2 = st.columns([2, 1])  # 왼쪽(결과): 비율 2, 오른쪽(이미지): 비율 1
 
             # 왼쪽: 결과 및 당첨자 목록 표시
             with col1:
@@ -88,7 +88,7 @@ if name_input:  # 이름이 입력되었을 때 바로 처리
 
                 # 2% 인원 수 표시
                 two_percent_count = st.session_state.winners["2%"]
-                st.write(f"2% 당첨자 총 인원: {two_percent_count}명")
+                st.write(f"이프로복숭아 설문 총 인원: {two_percent_count}명")
 
                 # 1등, 2등, 3등 이름 공개
                 for prize_key, winners in {"100%": "1등", "20%": "2등", "3%": "3등"}.items():
@@ -109,7 +109,7 @@ if name_input:  # 이름이 입력되었을 때 바로 처리
             st.session_state.current_index += 1
 
         else:
-            if len(st.session_state.participants) < 30:
+            if len(st.session_state.participants) < 70:
                 st.warning("참가자가 아직 모두 등록되지 않았습니다!")
             else:
                 st.success("모든 참가자의 제비뽑기가 완료되었습니다!")
