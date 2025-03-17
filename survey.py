@@ -16,15 +16,20 @@ if "participants" not in st.session_state:
     random.shuffle(st.session_state.prizes)
     st.session_state.current_index = 0
     st.session_state.winners = {"100%": [], "20%": [], "3%": [], "2%": 0}
+if "name_input" not in st.session_state:
+    st.session_state.name_input = ""  # 입력값 초기화
 
 # 참가자 이름 입력받기
-name_input = st.text_input("참가자 이름을 입력하세요:", key="name_input")
+name_input = st.text_input("참가자 이름을 입력하세요:", value=st.session_state.name_input, key="name_input")
 
 if name_input:  # 이름이 입력되었을 때 바로 처리
     if name_input not in st.session_state.participants:
         st.session_state.participants.append(name_input)
         st.success(f"참가자 '{name_input}'가 등록되었습니다!")
         
+        # 입력창 초기화 (빈칸으로 설정)
+        st.session_state.name_input = ""  # 입력값 초기화
+
         # 결과 확인 자동 실행
         if st.session_state.current_index < len(st.session_state.participants):
             participant = st.session_state.participants[st.session_state.current_index]
