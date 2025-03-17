@@ -80,19 +80,20 @@ if name_input:
                     f"<h2 style='color: pink;'>🥈 축하드립니다! {name_input}님이 2등입니다! 이제 운동 후, 이프로 마시고 이 수건을 써보세요! 🥈</h2>",
                     unsafe_allow_html=True,
                 )
-                st.balloons()
+                st.snow
+
 
             elif prize == "3%":
                 st.markdown(
                     f"<h3 style='color: pink;'>🥉 축하합니다! {name_input}님이 3등입니다! 이프로가 건강해져도 마시고 양치해야겠죠? 🥉</h3>",
                     unsafe_allow_html=True,
                 )
+                st.star
             else:
                 st.markdown(
                     f"<h4 style='color: pink;'>{name_input}님, 이프로로 오늘의 일상도 특별하게!!</h4>",
                     unsafe_allow_html=True,
                 )
-                st.balloons()
 
             # 현재까지의 당첨자 목록 표시 (결과와 함께 출력)
             st.subheader("📊 현재까지의 당첨자 목록")
@@ -120,8 +121,14 @@ if name_input:
             total_registered = len(st.session_state.participants)
             remaining_slots = total_participants - total_registered
             
-            # 차트 형태로 참여 인원 표시 (st.metric 사용)
-            st.metric(label="참여 인원", value=f"{total_registered}명", delta=f"-{remaining_slots}명 남음")
+            # 차트 형태로 참여 인원 표시 (st.bar_chart 사용)
+            chart_data = {
+                "참여 인원": total_registered,
+                "남은 자리": remaining_slots,
+            }
+            
+            chart_df = pd.DataFrame([chart_data.values()], columns=chart_data.keys())
+            st.bar_chart(chart_df)
 
         # 오른쪽: 이미지 표시 (원본 크기 유지)
         with col3:
