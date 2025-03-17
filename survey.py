@@ -82,15 +82,15 @@ if name_input:
                     f"<h2 style='color: pink;'>🥈 축하드립니다! {name_input}님이 2등입니다! 이제 운동 후, 이프로 마시고 이 수건을 써보세요! 🥈</h2>",
                     unsafe_allow_html=True,
                 )
-                st.snow
-
+                st.snow()
 
             elif prize == "3%":
                 st.markdown(
                     f"<h3 style='color: pink;'>🥉 축하합니다! {name_input}님이 3등입니다! 이프로가 건강해져도 마시고 양치해야겠죠? 🥉</h3>",
                     unsafe_allow_html=True,
                 )
-                st.star
+                st.star()
+                
             else:
                 st.markdown(
                     f"<h4 style='color: pink;'>{name_input}님, 이프로로 오늘의 일상도 특별하게!!</h4>",
