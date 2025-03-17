@@ -43,11 +43,28 @@ if name_input:  # 이름이 입력되었을 때 바로 처리
             img_path = prize_images.get(prize, None)
 
             # 좌우 레이아웃 설정
-            col1, col2 = st.columns([2, 1])  # 왼쪽(결과): 2 비율, 오른쪽(이미지): 1 비율
+            col1, col2 = st.columns([2, 1])  # 왼쪽(결과): 비율 2, 오른쪽(이미지): 비율 1
 
             # 왼쪽: 결과 및 당첨자 목록 표시
             with col1:
-                st.success(f"{participant}님의 결과: {prize}")
+                if prize == "100%":
+                    st.markdown(
+                        f"<h1 style='color: gold;'>🎉 축하합니다! {participant}님이 1등입니다! 🎉</h1>",
+                        unsafe_allow_html=True,
+                    )
+                    st.balloons()  # 풍선 효과 추가
+                elif prize == "20%":
+                    st.markdown(
+                        f"<h2 style='color: silver;'>🥈 {participant}님이 2등입니다! 축하드립니다! 🥈</h2>",
+                        unsafe_allow_html=True,
+                    )
+                elif prize == "3%":
+                    st.markdown(
+                        f"<h3 style='color: bronze;'>🥉 {participant}님이 3등입니다! 축하드립니다! 🥉</h3>",
+                        unsafe_allow_html=True,
+                    )
+                else:
+                    st.write(f"{participant}님, 아쉽지만 다음 기회를 노려보세요!")
 
                 # 현재까지의 당첨자 목록 표시 (결과와 함께 출력)
                 st.subheader("📊 현재까지의 당첨자 목록")
@@ -79,7 +96,7 @@ if name_input:  # 이름이 입력되었을 때 바로 처리
             st.session_state.current_index += 1
 
         else:
-            if len(st.session_state.participants) < 80:
+            if len(st.session_state.participants) < 30:
                 st.warning("참가자가 아직 80명이 등록되지 않았습니다!")
             else:
                 st.success("모든 참가자의 제비뽑기가 완료되었습니다!")
