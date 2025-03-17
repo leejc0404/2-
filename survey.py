@@ -1,8 +1,13 @@
+pip install pandas
+import pandas as pd
+chart_df = pd.DataFrame([chart_data.values()], columns=chart_data.keys())
+
 import streamlit as st
 import random
 import time
 from PIL import Image
 import os
+
 
 # Set page configuration
 st.set_page_config(page_title="이프로 소비자 조사 경품", page_icon="🎉", layout="wide")
