@@ -14,7 +14,7 @@ if "participants" not in st.session_state:
     st.session_state.participants = []  # 참가자 이름 리스트 초기화
     
     # 1, 2, 3등이 반드시 포함된 경품 리스트 생성 (총 30명)
-    st.session_state.prizes = ["100%", "20%", "3%"] + ["2%"] * 27
+    st.session_state.prizes = ["100%", "20%", "3%"] + ["2%"] * 3
     random.shuffle(st.session_state.prizes)  # 경품 순서를 랜덤으로 섞기
     
     st.session_state.current_index = 0
@@ -106,7 +106,7 @@ if name_input:  # 이름이 입력되었을 때 바로 처리
             st.session_state.current_index += 1
 
         else:
-            if len(st.session_state.participants) < 30:
+            if len(st.session_state.participants) < 6:
                 st.warning("참가자가 아직 모두 등록되지 않았습니다!")
             else:
                 st.success("모든 참가자의 제비뽑기가 완료되었습니다!")
