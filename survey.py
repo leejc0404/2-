@@ -1,55 +1,48 @@
 import streamlit as st
 import random
-import time
-from PIL import Image
-import os
 
-# 페이지 설정
+# Set page configuration
 st.set_page_config(page_title="이프로 소비자 조사 경품", page_icon="🎉", layout="wide")
 
 st.title("🎉 이프로 시음 조사 경품 🎉")
 
-# 세션 상태 초기화
-if "participants" not in st.session_state:
-    st.session_state.participants = []  # 참가자 이름 리스트 초기화
-    
-    # 총 참가자 수 (예: 최대 10명)
-    total_participants = 10
+# Initialize total participants
+total_participants = 10  # Set the maximum number of participants
 
-    # 경품 리스트 생성 함수
+# Session state initialization
+if "participants" not in st.session_state:
+    st.session_state.participants = []  # Initialize participant list
+    
+    # Generate prize list based on total participants
     def generate_prize_list(total_participants):
-        # Divide the total participants into thirds
         first_third = total_participants // 3
         middle_third = total_participants // 3
         last_third = total_participants - first_third - middle_third
 
-        # Create placeholders for each section
         first_section = ['2%'] * first_third
         middle_section = ['2%'] * middle_third
         last_section = ['2%'] * last_third
 
-        # Place the specific prizes in their respective sections
+        # Place specific prizes in their respective sections
         first_section[random.randint(0, first_third - 1)] = '3%'
         middle_section[random.randint(0, middle_third - 1)] = '100%'
         last_section[random.randint(0, last_third - 1)] = '20%'
 
-        # Combine all sections into a single list
-        prize_list = first_section + middle_section + last_section
-        return prize_list
+        return first_section + middle_section + last_section
 
-    # 경품 리스트 생성 및 세션 상태에 저장
     st.session_state.prizes = generate_prize_list(total_participants)
     st.session_state.winners = {"100%": [], "20%": [], "3%": [], "2%": 0}
 
-# 참가자 이름 입력받기
+# Participant input and processing
 name_input = st.text_input("참가자 이름을 입력하세요:", key="name_input")
 
-if name_input:  # 이름이 입력되었을 때 바로 처리
+if name_input:
     if len(st.session_state.participants) >= total_participants:
         st.warning(f"참가자는 최대 {total_participants}명까지만 등록할 수 있습니다!")
     elif name_input not in st.session_state.participants:
         st.session_state.participants.append(name_input)
         st.success(f"참가자 '{name_input}'님이 등록되었습니다!")
+
 
         # 결과 확인 자동 실행 (순서대로 매칭)
         current_index = len(st.session_state.participants) - 1
