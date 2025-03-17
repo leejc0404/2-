@@ -7,8 +7,8 @@ import os
 # Set page configuration
 st.set_page_config(page_title="이프로 소비자 조사 경품", page_icon="🎉", layout="wide")
 
-#st.title("🎉 이프로복숭아 소비자 조사 경품 🎉  - 슬로건 : 이프로부족할때, 일상의 특별함을 더하다")
-st.markdown("<h2 style='color: orange;'>슬로건: 이프로부족할때, 일상의 특별함을 더하다</h2>", unsafe_allow_html=True)
+st.title("🎉 이프로복숭아 소비자 조사 경품 🎉  - 슬로건 : 이프로부족할때, 일상의 특별함을 더하다")
+#st.markdown("<h2 style='color: orange;'>슬로건: 이프로부족할때, 일상의 특별함을 더하다</h2>", unsafe_allow_html=True)
 
 # Initialize total participants
 total_participants = 10  # Set the maximum number of participants
