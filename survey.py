@@ -4,8 +4,8 @@ import time
 from PIL import Image
 import os
 
-# 페이지 설정
-st.set_page_config(page_title="이프로 시음 조사 경품", page_icon="🎉")
+# 페이지 설정 (레이아웃을 "wide"로 설정하여 화면을 넓게 사용)
+st.set_page_config(page_title="이프로 시음 조사 경품", page_icon="🎉", layout="wide")
 
 st.title("🎉 이프로 시음 조사 경품 🎉")
 
@@ -42,7 +42,7 @@ if name_input:  # 이름이 입력되었을 때 바로 처리
             }
             img_path = prize_images.get(prize, None)
 
-            # 좌우 레이아웃 설정
+            # 좌우 레이아웃 설정 (화면을 넓게 사용)
             col1, col2 = st.columns([2, 1])  # 왼쪽(결과): 비율 2, 오른쪽(이미지): 비율 1
 
             # 왼쪽: 결과 및 당첨자 목록 표시
@@ -69,6 +69,12 @@ if name_input:  # 이름이 입력되었을 때 바로 처리
                 # 현재까지의 당첨자 목록 표시 (결과와 함께 출력)
                 st.subheader("📊 현재까지의 당첨자 목록")
                 
+                # 방금 결과값 포함한 당첨자 목록 업데이트
+                if prize == "2%":
+                    st.session_state.winners["2%"] += 1
+                else:
+                    st.session_state.winners[prize].append(participant)
+
                 # 2% 인원 수 표시
                 two_percent_count = st.session_state.winners["2%"]
                 st.write(f"2% 당첨자 총 인원: {two_percent_count}명")
@@ -87,21 +93,16 @@ if name_input:  # 이름이 입력되었을 때 바로 처리
                 else:
                     st.info(f"(이미지 파일 '{img_path}' 없음)")
 
-            # 당첨자 저장 및 인덱스 증가
-            if prize == "2%":
-                st.session_state.winners["2%"] += 1
-            else:
-                st.session_state.winners[prize].append(participant)
-
+            # 다음 참가자로 이동
             st.session_state.current_index += 1
 
         else:
-            if len(st.session_state.participants) < 30:
+            if len(st.session_state.participants) < 80:
                 st.warning("참가자가 아직 80명이 등록되지 않았습니다!")
             else:
                 st.success("모든 참가자의 제비뽑기가 완료되었습니다!")
                 st.balloons()
 
-# 진행 상황 표시
+# 진행 상황 표시 (넓은 화면에 맞게 진행 바 표시)
 progress = (st.session_state.current_index / len(st.session_state.participants)) if len(st.session_state.participants) > 0 else 0
 st.progress(progress)
