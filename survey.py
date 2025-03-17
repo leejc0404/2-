@@ -14,7 +14,7 @@ st.title("🎉 이프로 시음 조사 경품 🎉")
 if "participants" not in st.session_state:
     st.session_state.participants = []  # 참가자 이름 리스트 초기화
     st.session_state.current_index = 0
-    st.session_state.winners = {"100%": [], "20%": [], "3%": [], "2%": 0}
+    st.session_state.winners = {"100%": [], "20%": [], "3%": [], "2%": 0}  # 각 등수별 당첨자 관리
 
 # 참가자 이름 입력받기
 name_input = st.text_input("참가자 이름을 입력하세요:", key="name_input")
@@ -31,13 +31,13 @@ if name_input:  # 이름이 입력되었을 때 바로 처리
             participant = st.session_state.participants[st.session_state.current_index]
             participant_number = st.session_state.current_index + 1  # 참가자 번호 (1부터 시작)
 
-            # 등수 결정: 참가자 번호에 따라 등수 범위 설정
-            if 60 <= participant_number <= 70:
-                prize = "100%"  # 1등
-            elif 1 <= participant_number <= 30:
-                prize = "20%"  # 2등
-            elif 31 <= participant_number <= 59:
-                prize = "3%"   # 3등
+            # 등수 결정: 참가자 번호에 따라 등수 범위 설정 및 제한
+            if 60 <= participant_number <= 70 and len(st.session_state.winners["100%"]) == 0:
+                prize = "100%"  # 1등 (60~70번에서 단 한 명)
+            elif 1 <= participant_number <= 30 and len(st.session_state.winners["20%"]) == 0:
+                prize = "20%"  # 2등 (1~30번에서 단 한 명)
+            elif 31 <= participant_number <= 59 and len(st.session_state.winners["3%"]) == 0:
+                prize = "3%"   # 3등 (31~59번에서 단 한 명)
             else:
                 prize = "2%"   # 나머지
 
@@ -92,11 +92,10 @@ if name_input:  # 이름이 입력되었을 때 바로 처리
                 else:
                     st.session_state.winners[prize].append(participant)
 
-                # 2% 인원 수 표시
+                # 각 등수별 인원 표시
                 two_percent_count = st.session_state.winners["2%"]
                 st.write(f"2% 당첨자 총 인원: {two_percent_count}명")
 
-                # 1등, 2등, 3등 이름 공개
                 for prize_key, winners in {"100%": "1등", "20%": "2등", "3%": "3등"}.items():
                     names = ", ".join(st.session_state.winners[prize_key])
                     if names:
