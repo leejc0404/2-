@@ -12,12 +12,7 @@ st.title("🎉 이프로 시음 조사 경품 🎉")
 # 세션 상태 초기화
 if "participants" not in st.session_state:
     st.session_state.participants = []  # 참가자 이름 리스트 초기화
-    
-    # 경품 리스트 생성 (1, 2, 3등과 나머지 "2%" 경품)
-    st.session_state.prizes = ["100%", "20%", "3%"] + ["2%"] * 7
-    random.shuffle(st.session_state.prizes)  # 경품 순서를 랜덤으로 섞기
-    
-    st.session_state.winners = {"100%": None, "20%": None, "3%": None, "2%": []}
+    st.session_state.winners = {"100%": None, "20%": None, "3%": None}  # 당첨자 초기화
 
 # 참가자 이름 입력받기
 name_input = st.text_input("참가자 이름을 입력하세요:", key="name_input")
@@ -29,22 +24,31 @@ if name_input:  # 이름이 입력되었을 때 바로 처리
         st.session_state.participants.append(name_input)
         participant_index = len(st.session_state.participants) - 1
         
-        # 등수 조건에 따라 경품 할당
-        if participant_index < 3:  # 1~3번째 참가자는 3등만 가능
+        # 등수 조건에 따라 경품 할당 (랜덤 선정)
+        if participant_index < 3:  # 첫 번째 그룹 (1~3번째 참가자)
+            eligible_group = st.session_state.participants[:3]
             if not st.session_state.winners["3%"]:
                 prize = "3%"
+                winner = random.choice(eligible_group)
+                st.session_state.winners["3%"] = winner
             else:
-                prize = "2%"
-        elif 3 <= participant_index < 6:  # 4~6번째 참가자는 2등만 가능
+                prize = None
+        elif 3 <= participant_index < 6:  # 두 번째 그룹 (4~6번째 참가자)
+            eligible_group = st.session_state.participants[3:6]
             if not st.session_state.winners["20%"]:
                 prize = "20%"
+                winner = random.choice(eligible_group)
+                st.session_state.winners["20%"] = winner
             else:
-                prize = "2%"
-        else:  # 7~10번째 참가자는 1등만 가능
+                prize = None
+        else:  # 세 번째 그룹 (7~10번째 참가자)
+            eligible_group = st.session_state.participants[6:10]
             if not st.session_state.winners["100%"]:
                 prize = "100%"
+                winner = random.choice(eligible_group)
+                st.session_state.winners["100%"] = winner
             else:
-                prize = "2%"
+                prize = None
 
         with st.spinner(f"{name_input}님의 결과를 뽑는 중입니다..."):
             time.sleep(2)
@@ -54,7 +58,6 @@ if name_input:  # 이름이 입력되었을 때 바로 처리
             "100%": ".devcontainer/stanley.png",
             "20%": ".devcontainer/teto.png",
             "3%": ".devcontainer/euthymol.png",
-            "2%": ".devcontainer/2_percent.png"
         }
         img_path = prize_images.get(prize, None)
 
@@ -65,47 +68,40 @@ if name_input:  # 이름이 입력되었을 때 바로 처리
         with col1:
             if prize == "100%":
                 st.markdown(
-                    f"<h1 style='color: pink;'>🎉 축하합니다! {name_input}님! 1등입니다! 이제 텀블러에 이프로 담아서 마셔보세요! :) 🎉</h1>",
+                    f"<h1 style='color: pink;'>🎉 축하합니다! {winner}님! 1등입니다! 이제 텀블러에 이프로 담아서 마셔보세요! :) 🎉</h1>",
                     unsafe_allow_html=True,
                 )
                 st.balloons()
-                st.session_state.winners["100%"] = name_input
 
             elif prize == "20%":
                 st.markdown(
-                    f"<h2 style='color: pink;'>🥈 {name_input}님이 2등입니다! 이제 운동 후, 이프로 마시고 이 수건을 써보세요! 축하드립니다! 🥈</h2>",
+                    f"<h2 style='color: pink;'>🥈 {winner}님이 2등입니다! 이제 운동 후, 이프로 마시고 이 수건을 써보세요! 축하드립니다! 🥈</h2>",
                     unsafe_allow_html=True,
                 )
                 st.snow()
-                st.session_state.winners["20%"] = name_input
 
             elif prize == "3%":
                 st.markdown(
-                    f"<h3 style='color: pink;'>🥉 {name_input}님이 3등입니다! 이프로 마시고 양치해야겠죠? 축하드립니다! 🥉</h3>",
+                    f"<h3 style='color: pink;'>🥉 {winner}님이 3등입니다! 이프로 마시고 양치해야겠죠? 축하드립니다! 🥉</h3>",
                     unsafe_allow_html=True,
                 )
-                st.session_state.winners["3%"] = name_input
 
             else:
                 st.markdown(
-                    f"<p style='color: pink;'>{name_input}님, 이프로로 오늘 일상도 특별하게!!</p>",
+                    f"<p style='color: pink;'>등록 완료! 결과는 이미 발표되었습니다!</p>",
                     unsafe_allow_html=True,
                 )
-                st.session_state.winners["2%"].append(name_input)
 
             # 현재까지의 당첨자 목록 표시 (결과와 함께 출력)
             st.subheader("📊 현재까지의 당첨자 목록")
             
-            # 당첨자 목록 업데이트 및 표시
             for prize_key, label in {"100%": "1등", "20%": "2등", "3%": "3등"}.items():
                 winner_name = st.session_state.winners[prize_key]
                 if winner_name:
                     st.write(f"{label}: {winner_name}")
-            
-            two_percent_count = len(st.session_state.winners["2%"])
-            if two_percent_count > 0:
-                two_percent_names = ", ".join(st.session_state.winners["2%"])
-                st.write(f"기타(2%): {two_percent_names} ({two_percent_count}명)")
+
+            total_count = len(st.session_state.participants)
+            st.write(f"총 등록된 인원: {total_count}명")
 
         # 오른쪽: 이미지 표시 (원본 크기 유지)
         with col2:
@@ -114,7 +110,8 @@ if name_input:  # 이름이 입력되었을 때 바로 처리
                 # 원본 크기로 이미지 표시
                 st.image(img)  
             else:
-                st.info(f"(이미지 파일 '{img_path}' 없음)")
+                if prize is not None:
+                    st.info(f"(이미지 파일 '{img_path}' 없음)")
 
 # 진행 상황 표시 (넓은 화면에 맞게 진행 바 표시)
 progress = (len(st.session_state.participants) / 10) if len(st.session_state.participants) > 0 else 0
