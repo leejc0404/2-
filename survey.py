@@ -42,14 +42,33 @@ if name_input:  # 이름이 입력되었을 때 바로 처리
             }
             img_path = prize_images.get(prize, None)
 
-            # 결과 표시
-            st.success(f"{participant}님의 결과: {prize}")
+            # 좌우 레이아웃 설정
+            col1, col2 = st.columns([2, 1])  # 왼쪽(결과): 2 비율, 오른쪽(이미지): 1 비율
 
-            if img_path and os.path.exists(img_path):
-                img = Image.open(img_path)
-                st.image(img, use_container_width=True)  # 수정된 부분: use_column_width → use_container_width
-            else:
-                st.info(f"(이미지 파일 '{img_path}' 없음)")
+            # 왼쪽: 결과 및 당첨자 목록 표시
+            with col1:
+                st.success(f"{participant}님의 결과: {prize}")
+
+                # 현재까지의 당첨자 목록 표시 (결과와 함께 출력)
+                st.subheader("📊 현재까지의 당첨자 목록")
+                
+                # 2% 인원 수 표시
+                two_percent_count = st.session_state.winners["2%"]
+                st.write(f"2% 당첨자 총 인원: {two_percent_count}명")
+
+                # 1등, 2등, 3등 이름 공개
+                for prize_key, winners in {"100%": "1등", "20%": "2등", "3%": "3등"}.items():
+                    names = ", ".join(st.session_state.winners[prize_key])
+                    if names:
+                        st.write(f"{winners}: {names}")
+
+            # 오른쪽: 이미지 표시
+            with col2:
+                if img_path and os.path.exists(img_path):
+                    img = Image.open(img_path)
+                    st.image(img, use_container_width=True)  # 수정된 부분: use_column_width → use_container_width
+                else:
+                    st.info(f"(이미지 파일 '{img_path}' 없음)")
 
             # 당첨자 저장 및 인덱스 증가
             if prize == "2%":
@@ -58,19 +77,6 @@ if name_input:  # 이름이 입력되었을 때 바로 처리
                 st.session_state.winners[prize].append(participant)
 
             st.session_state.current_index += 1
-
-            # 현재까지의 당첨자 목록 표시 (결과와 함께 출력)
-            st.subheader("📊 현재까지의 당첨자 목록")
-            
-            # 2% 인원 수 표시
-            two_percent_count = st.session_state.winners["2%"]
-            st.write(f"2% 당첨자 총 인원: {two_percent_count}명")
-
-            # 1등, 2등, 3등 이름 공개
-            for prize, winners in {"100%": "1등", "20%": "2등", "3%": "3등"}.items():
-                names = ", ".join(st.session_state.winners[prize])
-                if names:
-                    st.write(f"{winners}: {names}")
 
         else:
             if len(st.session_state.participants) < 80:
