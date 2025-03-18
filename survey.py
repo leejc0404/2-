@@ -93,7 +93,7 @@ if name_input:
                 
             else:
                 st.markdown(
-                    f"<h4 style='color: pink;'>{name_input}님, 이프로로 오늘의 일상도 특별하게!!</h4>",
+                    f"<h4 style='color: pink;'>{name_input}님, 아쉽지만 다음 기회에! 이프로 많이 기대해주세요!!</h4>",
                     unsafe_allow_html=True,
                 )
 
