@@ -84,7 +84,7 @@ if name_input:
                 #)
                 #st.snow()
                 
-            elif prize == "100%":
+            if prize == "100%":
                 st.markdown(
                     f"<h3 style='color: pink;'>🥉 축하합니다! {name_input}님이 3등입니다! 이프로가 건강해져도 마시고 양치해야겠죠? 🥉</h3>",
                     unsafe_allow_html=True,
