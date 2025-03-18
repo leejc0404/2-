@@ -58,8 +58,10 @@ if name_input:
 
         # 이미지 경로 설정
         prize_images = {
-            "100%": ".devcontainer/stanley.png",
-            "20%": ".devcontainer/teto.png",
+            #"100%": ".devcontainer/stanley.png",
+            #"20%": ".devcontainer/teto.png",
+            "100%": ".devcontainer/euthymol.png",
+            "20%": ".devcontainer/euthymol.png",
             "3%": ".devcontainer/euthymol.png",
             "2%": ".devcontainer/2_percent.png"
         }
@@ -127,7 +129,8 @@ if name_input:
             st.write(f"이프로복숭아 설문 총 인원: {two_percent_count}명")
 
             # 1등, 2등, 3등 이름 공개
-            for prize_key, winners in {"100%": "1등", "20%": "2등", "3%": "3등"}.items():
+            #for prize_key, winners in {"100%": "1등", "20%": "2등", "3%": "3등"}.items():
+            for prize_key, winners in {"100%": "3등", "20%": "3등", "3%": "3등"}.items():
                 names = ", ".join(st.session_state.winners[prize_key])
                 if names:
                     st.write(f"{winners}: {names}")
