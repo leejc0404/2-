@@ -70,26 +70,40 @@ if name_input:
 
         # 왼쪽: 결과 텍스트 표시
         with col1:
-            if prize == "100%":
+            #if prize == "100%":
+                #st.markdown(
+                    #f"<h1 style='color: pink;'>🎉 축하합니다! {name_input}님! 1등입니다! 이제 텀블러에 이프로 담아서 마셔보세요! :) 🎉</h1>",
+                    #unsafe_allow_html=True,
+                #)
+                #st.balloons()
+
+            #elif prize == "20%":
+                #st.markdown(
+                    #f"<h2 style='color: pink;'>🥈 축하드립니다! {name_input}님이 2등입니다! 이제 운동 후, 이프로 마시고 이 수건을 써보세요! 🥈</h2>",
+                    #unsafe_allow_html=True,
+                #)
+                #st.snow()
+                
+            elif prize == "100%":
                 st.markdown(
-                    f"<h1 style='color: pink;'>🎉 축하합니다! {name_input}님! 1등입니다! 이제 텀블러에 이프로 담아서 마셔보세요! :) 🎉</h1>",
+                    f"<h3 style='color: pink;'>🥉 축하합니다! {name_input}님이 3등입니다! 이프로가 건강해져도 마시고 양치해야겠죠? 🥉</h3>",
                     unsafe_allow_html=True,
                 )
                 st.balloons()
-
+                
             elif prize == "20%":
                 st.markdown(
-                    f"<h2 style='color: pink;'>🥈 축하드립니다! {name_input}님이 2등입니다! 이제 운동 후, 이프로 마시고 이 수건을 써보세요! 🥈</h2>",
+                    f"<h3 style='color: pink;'>🥉 축하합니다! {name_input}님이 3등입니다! 이프로가 건강해져도 마시고 양치해야겠죠? 🥉</h3>",
                     unsafe_allow_html=True,
                 )
-                st.snow()
+                st.balloons()
 
             elif prize == "3%":
                 st.markdown(
                     f"<h3 style='color: pink;'>🥉 축하합니다! {name_input}님이 3등입니다! 이프로가 건강해져도 마시고 양치해야겠죠? 🥉</h3>",
                     unsafe_allow_html=True,
                 )
-                st.snow()
+                st.balloons()
                 
             else:
                 st.markdown(
