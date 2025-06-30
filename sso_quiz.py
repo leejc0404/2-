@@ -34,7 +34,7 @@ QUIZ_LIST = [
 
 여기서 OO에 들어갈 말은!?""",
         "answer": "팔뚝",
-        "prize": "두둥!! 이쁘니 상품권"
+        "prize": "두둥!! 이쁘니 상품권 (https://drive.google.com/file/d/1oBzlfLweKRhdB9Y6Vri9kkBuKvj-0GKw/view?usp=drive_link)"
     },
     {
         "start_hour": 16,
@@ -164,4 +164,4 @@ else:
 # 안내
 st.markdown("---")
 st.caption("""정해진 시간(오전 11시/오후 2시/4시/6시/8시/10시)에만 문제가 오픈된다구!\n
-제한시간 안에 맞추지 못할 시 선물은 내꺼여.""")
+제한시간 안에 맞추지 못할 시 선물은 내꺼여.(https://drive.google.com/file/d/1oBzlfLweKRhdB9Y6Vri9kkBuKvj-0GKw/view?usp=drive_link)""")
