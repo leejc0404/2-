@@ -175,9 +175,8 @@ else:
 # 안내
 st.markdown("---")
 st.markdown("""
-<div style='background-color:#ffcccc; padding:10px; border-radius:10px; text-align:center;'>
-  <p style='color:#b30000; font-size:16px; font-weight:bold;'>⚠️ 정해진 시간(오전 11시/오후 2시/4시/6시/8시/10시)에만 문제가 오픈된다구!</p>
-  <p style='color:#800000; font-weight:bold;'>제한시간 안에 맞추지 못할 시 선물은 내꺼여 😈🎁</p>
-  <img src='https://cdn-icons-png.flaticon.com/512/616/616408.png' alt='warning' width='50' style='margin-top:10px;'>
+<div style='background-color:#f8f9fa; border-left:4px solid #ff6b6b; padding:12px 16px; border-radius:4px; margin:12px 0;'>
+  <p style='color:#333; font-size:16px; font-weight:500; margin:0;'>⏰ 정해진 시간(오전 11시, 오후 2시/4시/6시/8시/10시)에만 문제가 오픈됩니다</p>
+  <p style='color:#666; font-size:14px; margin-top:8px; margin-bottom:0;'>제한 시간 내에 맞추지 못하면 선물은 출제자의 몫입니다</p>
 </div>
 """, unsafe_allow_html=True)
