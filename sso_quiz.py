@@ -10,7 +10,7 @@ st.set_page_config(page_title="소혜's Birthday present event", page_icon="🎮
 
 # 타이틀 출력
 st.title("🎮 소혜's Birthday present event")
-st.markdown("**정해진 시간에만 문제를 풀 수 있는 특별한 타임어택 퀴즈!**")
+st.markdown("**정해진 시간에만 문제를 풀 수 있는 소혜's Birthday present event!**")
 
 # 시간별 문제/정답/상품 데이터 (시간대 구간 추가)
 QUIZ_LIST = [
@@ -163,4 +163,4 @@ else:
 
 # 안내
 st.markdown("---")
-st.caption("정해진 시간에 맞는 문제만 자동으로 오픈됩니다. (오전 11시/오후 2시/4시/6시/8시/10시)")
+st.caption("정해진 시간에 맞는 문제만 자동으로 오픈됩니다. (오전 11시/오후 2시/4시/6시/8시/10시), 제한시간 안에 맞추지 못할 시 선물은 출제자가 갖습니다.")
