@@ -157,8 +157,19 @@ if quiz:
             elif answer:
                 st.error("틀렸즹~ 오답이징~")
 else:
-    # 퀴즈 시간대가 아닐 때 표시
-    st.title("LOADING...")
+    # LOADING... 애니메이션 적용
+    components.html("""
+    <div style="font-size:24px; text-align:center; margin-bottom:10px;">
+        <div id="loading" style="font-weight:bold;">LOADING.</div>
+    </div>
+    <script>
+    let dots = 1;
+    setInterval(function() {
+        document.getElementById("loading").innerHTML = "LOADING" + ".".repeat(dots);
+        dots = dots % 3 + 1;
+    }, 500);
+    </script>
+    """, height=60)
     st.write("아직 문제 시간이 아닙니다. 조금만 기다려 주세요!")
 
 # 안내
