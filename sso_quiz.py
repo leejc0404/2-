@@ -16,8 +16,8 @@ st.markdown("""**정해진 시간에만 문제를 풀 수 있는 \n
 # 시간별 문제/정답/상품 데이터 (시간대 구간 추가)
 QUIZ_LIST = [
     {
-        "start_hour": 2,  # 오전 11시 시작
-        "end_hour": 3,    # 오전 12시 전까지
+        "start_hour": 11,  # 오전 11시 시작
+        "end_hour": 12,    # 오전 12시 전까지
         "label": "오전 11시",
         "question": """우리가 갈 식당은!? 우리나라에서 \n
 ㄱㅈ ㅂㅆ ㄱㅂ??""",
@@ -147,16 +147,20 @@ else:
     """, height=60)
     st.write("아직 문제 시간이 아닙니다. 조금만 기다려 주세요!")
 
-# 모든 시간대 질문/답 미리보기 버튼
+# 모든 시간대 질문/답 미리보기 (비밀번호 입력)
 if st.checkbox("모든 시간대 질문과 답 미리보기"):
-    st.markdown("---")
-    st.subheader("모든 시간대 질문과 정답")
-    for quiz in QUIZ_LIST:
-        st.markdown(f"**{quiz['label']}**")
-        st.write(f"질문: {quiz['question']}")
-        st.write(f"정답: {quiz['answer']}")
-        st.write(f"상품: {quiz['prize']}")
+    password = st.text_input("비밀번호를 입력하세요", type="password")
+    if password == "1234":
         st.markdown("---")
+        st.subheader("모든 시간대 질문과 정답")
+        for quiz in QUIZ_LIST:
+            st.markdown(f"**{quiz['label']}**")
+            st.write(f"질문: {quiz['question']}")
+            st.write(f"정답: {quiz['answer']}")
+            st.write(f"상품: {quiz['prize']}")
+            st.markdown("---")
+    elif password != "":
+        st.error("비밀번호가 틀렸습니다!")
         
 # 안내
 st.markdown("---")
