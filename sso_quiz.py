@@ -159,7 +159,7 @@ if quiz:
 else:
     # LOADING... 애니메이션 적용
     components.html("""
-    <div style="font-size:24px; text-align:center; margin-bottom:10px;">
+    <div style="font-size:24px; margin-bottom:10px;">
         <div id="loading" style="font-weight:bold;">LOADING.</div>
     </div>
     <script>
