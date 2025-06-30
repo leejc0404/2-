@@ -119,15 +119,15 @@ if quiz:
                 # 문제별 애니메이션
                 if quiz["start_hour"] == 11:
                     st.balloons()
-                elif quiz["start_hour"] == 2:
+                elif quiz["start_hour"] == 14:
                     st.snow()
-                elif quiz["hour"] == 16:
+                elif quiz["start_hour"] == 16:
                     st.balloons()
-                elif quiz["hour"] == 18:
+                elif quiz["start_hour"] == 18:
                     st.snow()
-                elif quiz["hour"] == 20:
+                elif quiz["start_hour"] == 20:
                     st.balloons()
-                elif quiz["hour"] == 22:
+                elif quiz["start_hour"] == 22:
                     st.snow()
             elif answer:
                 st.error("틀렸즹~ 오답이징~")
