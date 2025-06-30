@@ -164,8 +164,8 @@ else:
 # 안내
 st.markdown("---")
 st.markdown("""
-<div style='background-color:#ffcccc; padding:9px; border-radius:9px; text-align:center;'>
-  <h4 style='color:#b30000;'>⚠️ <strong>정해진 시간(오전 11시/오후 2시/4시/6시/8시/10시)에만 문제가 오픈된다구!</strong></h4>
+<div style='background-color:#ffcccc; padding:10px; border-radius:10px; text-align:center;'>
+  <h4 style='color:#b30000;'>⚠️ 정해진 시간(오전 11시/오후 2시/4시/6시/8시/10시)에만 문제가 오픈된다구!</h4>
   <p style='color:#800000; font-weight:bold;'>제한시간 안에 맞추지 못할 시 선물은 내꺼여 😈🎁</p>
   <img src='https://cdn-icons-png.flaticon.com/512/616/616408.png' alt='warning' width='50' style='margin-top:10px;'>
 </div>
