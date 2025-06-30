@@ -117,11 +117,11 @@ if quiz:
                 st.session_state.solved = True
 
                 # 문제별 애니메이션
-                if quiz["start_hour"] == 2:
+                if quiz["start_hour"] == 11:
                     st.balloons()
                 elif quiz["start_hour"] == 14:
                     st.balloons()
-                elif quiz["start_hour"] == 16:
+                elif quiz["start_hour"] == 2:
                     st.markdown("""
                     <div style="position:relative;width:100%;height:0;padding-bottom:56.25%;">
                         <iframe src="https://giphy.com/embed/26ufdipQqU2lhNA4g" 
