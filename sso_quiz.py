@@ -10,13 +10,21 @@ st.set_page_config(page_title="소혜's Birthday present event", page_icon="🎮
 
 # 타이틀 출력
 st.title("🎮 소혜's Birthday present event")
-st.markdown("**정해진 시간에만 문제를 풀 수 있는 소혜's Birthday present event!**")
+st.markdown("**정해진 시간에만 문제를 풀 수 있는 특별한 타임어택 퀴즈!**")
 
 # 시간별 문제/정답/상품 데이터 (시간대 구간 추가)
 QUIZ_LIST = [
     {
-        "start_hour": 14,  # 시작 시간
-        "end_hour": 16,    # 종료 시간 (16시 이전까지)
+        "start_hour": 11,  # 오전 11시 시작
+        "end_hour": 12,    # 오전 12시 전까지
+        "label": "오전 11시",
+        "question": "우리가 갈 식당은!? 우리나라에서 가장 비싼....ㄱ....ㅂ??",
+        "answer": "정식당",
+        "prize": "정식당 식사권!!"
+    },
+    {
+        "start_hour": 14,
+        "end_hour": 16,
         "label": "오후 2시",
         "question": """힌트 : 소설 『수난이대』(하근찬)
 
@@ -54,7 +62,7 @@ QUIZ_LIST = [
     },
     {
         "start_hour": 22,
-        "end_hour": 24,  # 24시(자정)까지
+        "end_hour": 24,
         "label": "오후 10시",
         "question": "\"내일 필요한 거지... 활활 타라~, 5글자\"",
         "answer": "마시멜로우",
@@ -71,9 +79,6 @@ def get_current_quiz():
     for quiz in QUIZ_LIST:
         # 현재 시간이 해당 퀴즈의 시간대에 속하는지 확인
         if now_hour >= quiz["start_hour"] and now_hour < quiz["end_hour"]:
-            # 같은 시간대 내에서도 정확한 시간 범위 확인
-            if now_hour == quiz["start_hour"] and now_minute < 0:
-                continue  # 시작 시간 이전
             return quiz
     return None  # 해당 시간대 없음
 
@@ -98,7 +103,9 @@ if quiz:
                 st.session_state.solved = True
 
                 # 문제별 애니메이션
-                if quiz["start_hour"] == 14:
+                if quiz["start_hour"] == 11:
+                    st.balloons()
+                elif quiz["start_hour"] == 14:
                     st.balloons()
                 elif quiz["start_hour"] == 16:
                     st.markdown("""
@@ -156,4 +163,4 @@ else:
 
 # 안내
 st.markdown("---")
-st.caption("정해진 시간에 맞는 문제만 자동으로 오픈됩니다. (오후 2시/4시/6시/8시/10시)")
+st.caption("정해진 시간에 맞는 문제만 자동으로 오픈됩니다. (오전 11시/오후 2시/4시/6시/8시/10시)")
