@@ -10,7 +10,7 @@ st.set_page_config(page_title="소혜's Birthday present event", page_icon="🎮
 
 # 타이틀 출력
 st.title("🎮 소혜's Birthday present event")
-st.markdown("""**정해진 시간에만 문제를 풀 수 있는
+st.markdown("""**정해진 시간에만 문제를 풀 수 있는<br>
 소혜's Birthday present event!**""")
 
 # 시간별 문제/정답/상품 데이터 (시간대 구간 추가)
