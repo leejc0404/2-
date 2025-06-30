@@ -84,11 +84,59 @@ if not st.session_state.solved:
         if answer and answer.replace(" ", "") == quiz["answer"]:
             st.success(f"정답! 🎉 상품: {quiz['prize']}")
             st.session_state.solved = True
-            st.balloons()
+
+            # 문제별 애니메이션
+            if quiz["hour"] == 14:
+                st.balloons()
+            elif quiz["hour"] == 16:
+                st.markdown("""
+                <div style="position:relative;width:100%;height:0;padding-bottom:56.25%;">
+                    <iframe src="https://giphy.com/embed/26ufdipQqU2lhNA4g" 
+                            width="100%" height="100%" 
+                            style="position:absolute" frameBorder="0" allowFullScreen>
+                    </iframe>
+                </div>
+                """, unsafe_allow_html=True)
+            elif quiz["hour"] == 18:
+                st.markdown("""
+                <style>
+                .star {
+                    animation: spin 2s linear infinite;
+                    font-size: 40px;
+                }
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+                </style>
+                <div class="star">✨✨✨</div>
+                """, unsafe_allow_html=True)
+            elif quiz["hour"] == 20:
+                st.markdown("""
+                <style>
+                .gift {
+                    animation: shake 0.5s;
+                    animation-iteration-count: infinite;
+                    font-size: 40px;
+                }
+                @keyframes shake {
+                  0% { transform: translate(1px, 1px) rotate(0deg); }
+                  25% { transform: translate(-1px, -2px) rotate(-1deg); }
+                  50% { transform: translate(-3px, 0px) rotate(1deg); }
+                  75% { transform: translate(3px, 2px) rotate(0deg); }
+                  100% { transform: translate(1px, -1px) rotate(1deg); }
+                }
+                </style>
+                <div class="gift">🎁🎁🎁</div>
+                """, unsafe_allow_html=True)
+            elif quiz["hour"] == 22:
+                st.markdown("""
+                <div style="text-align:center">
+                    <img src="https://media.giphy.com/media/L0N9j5QzZk3hM/giphy.gif" width="100%">
+                </div>
+                """, unsafe_allow_html=True)
         elif answer:
             st.error("틀렸즹~ 오답이징~")
-else:
-    st.info(f"이미 맞추셨습니다! 🎁 상품: {quiz['prize']}")
 
 # 안내
 st.markdown("---")
