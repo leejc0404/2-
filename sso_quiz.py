@@ -121,7 +121,7 @@ if quiz:
                     st.balloons()
                 elif quiz["start_hour"] == 14:
                     st.snow()
-                elif quiz["hour"] == 16:
+                elif quiz["hour"] == 2:
                     st.markdown("""
                     <div style="position:relative;width:100%;height:0;padding-bottom:56.25%;">
                         <iframe src="https://giphy.com/embed/26ufdipQqU2lhNA4g" 
@@ -130,7 +130,7 @@ if quiz:
                         </iframe>
                     </div>
                     """, unsafe_allow_html=True)
-                elif quiz["hour"] == 2:
+                elif quiz["hour"] == 18:
                     st.markdown("""
                     <style>
                     .star {
@@ -162,7 +162,7 @@ if quiz:
                     </style>
                     <div class="gift">🎁🎁🎁</div>
                     """, unsafe_allow_html=True)
-                elif quiz["start_hour"] == 22:
+                elif quiz["hour"] == 22:
                     st.markdown("""
                     <div style="text-align:center">
                         <img src="https://media.giphy.com/media/L0N9j5QzZk3hM/giphy.gif" width="100%">
