@@ -1,9 +1,9 @@
 # =================================
 # 🎮 소혜's Birthday present event
 # =================================
-
 import streamlit as st
 import pandas as pd
+import streamlit.components.v1 as components
 
 # 페이지 설정
 st.set_page_config(page_title="소혜's Birthday present event", page_icon="🎮", layout="centered")
