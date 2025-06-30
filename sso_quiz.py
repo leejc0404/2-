@@ -144,7 +144,7 @@ if quiz:
                     </style>
                     <div class="star">✨✨✨</div>
                     """, unsafe_allow_html=True)
-                elif quiz["start_hour"] == 20:
+                elif quiz["start_hour"] == 2:
                     st.markdown("""
                     <style>
                     .gift {
