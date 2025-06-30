@@ -5,6 +5,17 @@ import streamlit as st
 import pandas as pd
 import streamlit.components.v1 as components
 
+# 모든 시간대 질문/답 미리보기 버튼
+if st.checkbox("모든 시간대 질문과 답 미리보기"):
+    st.markdown("---")
+    st.subheader("모든 시간대 질문과 정답")
+    for quiz in QUIZ_LIST:
+        st.markdown(f"**{quiz['label']}**")
+        st.write(f"질문: {quiz['question']}")
+        st.write(f"정답: {quiz['answer']}")
+        st.write(f"상품: {quiz['prize']}")
+        st.markdown("---")
+
 # 페이지 설정
 st.set_page_config(page_title="소혜's Birthday present event", page_icon="🎮", layout="centered")
 
