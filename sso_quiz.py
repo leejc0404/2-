@@ -148,7 +148,7 @@ else:
     st.write("아직 문제 시간이 아닙니다. 조금만 기다려 주세요!")
 
 # 모든 시간대 질문/답 미리보기 (비밀번호 입력)
-if st.checkbox("모든 시간대 질문과 답 미리보기"):
+if st.checkbox("관리자 모드"):
     password = st.text_input("비밀번호를 입력하세요", type="password")
     if password == "1234":
         st.markdown("---")
