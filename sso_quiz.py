@@ -176,7 +176,7 @@ else:
 st.markdown("---")
 st.markdown("""
 <div style='background-color:#f8f9fa; border-left:4px solid #ff6b6b; padding:12px 16px; border-radius:4px; margin:12px 0;'>
-  <p style='color:#333; font-size:16px; font-weight:500; margin:0;'>⏰ 정해진 시간(오전 11시, 오후 2시/4시/6시/8시/10시)에만 문제가 오픈됩니다</p>
-  <p style='color:#666; font-size:14px; margin-top:8px; margin-bottom:0;'>제한 시간 내에 맞추지 못하면 선물은 출제자의 몫입니다</p>
+  <p style='color:#333; font-size:16px; font-weight:500; margin:0;'>⏰ 정해진 시간(오전 11시, 오후 2시/4시/6시/8시/10시)에만 문제가 오픈됩니다.</p>
+  <p style='color:#666; font-size:14px; margin-top:8px; margin-bottom:0;'>제한 시간 내에 맞추지 못하면 선물은 출제자(성동구 사랑꾼)의 몫입니다</p>
 </div>
 """, unsafe_allow_html=True)
