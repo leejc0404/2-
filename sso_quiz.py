@@ -121,7 +121,7 @@ if quiz:
                     st.balloons()
                 elif quiz["start_hour"] == 14:
                     st.snow()
-                elif quiz["hour"] == 2:
+                elif quiz["hour"] == 16:
                     st.balloons()
                 elif quiz["hour"] == 18:
                     st.snow()
